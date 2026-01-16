@@ -3,31 +3,26 @@ class dma_adapter extends uvm_reg_adapter;
 
 	function new (string name = "dma_adapter");
 		super.new (name);
-	endfunction
+	endfunction: new
 
 	function uvm_sequence_item reg2bus(const ref uvm_reg_bus_op rw);
-		dma_seq_item seq;    
-		seq = dma_seq_item::type_id::create("seq");
-		seq.wr_en = (rw.kind == UVM_WRITE);
-		seq.addr  = rw.addr;
-		if (tx.wr_en)  tx.wdata = rw.data;
-		if (!tx.wr_en) tx.rdata = rw.data;
-	//if (tx.wr_en)  $display("[Adapter: reg2bus] WR: Addr=%0h, Data=%0h",tx.addr,tx.wdata);
-	//if (!tx.wr_en) $display("[Adapter: reg2bus] RD: Addr=%0h",tx.addr);
-		return tx;
-	endfunction
+		dma_seq_item dma;    
+		dma = dma_seq_item::type_id::create("dma");
+		dma.wr_en = (rw.kind == UVM_WRITE);
+		dma.addr  = rw.addr;
+		dma.wdata = rw.data;
+		/* if (!dma.wr_en) */ 
+		/* 	dma.rdata = rw.data; */
+		return ;
+	endfunction: reg2bus
 
 	function void bus2reg(uvm_sequence_item bus_item, ref uvm_reg_bus_op rw);
-		dma_seq_item tx;
-
-		assert( $cast(tx, bus_item) )
-		else `uvm_fatal("", "A bad thing has just happened in my_adapter")
-
-		rw.kind = tx.wr_en ? UVM_WRITE : UVM_READ;
-		rw.addr = tx.addr;
-		rw.data = tx.rdata;
-
-	//if(rw.kind == UVM_READ) $display("[Adapter: bus2reg] RD: Addr=%0h, Data=%0h",tx.addr,tx.rdata);
+		dma_seq_item dma;
+		assert($cast(dma, bus_item))
+		rw.kind = dma.wr_en ? UVM_WRITE : UVM_READ;
+		rw.data = dma.wr_en ? dma.wdata : dma.rdata;
+		rw.addr = dma.addr;
 		rw.status = UVM_IS_OK;
-	endfunction
-endclass
+	endfunction: bus2reg
+
+endclass: dma_adapter
