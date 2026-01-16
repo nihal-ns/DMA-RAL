@@ -13,7 +13,7 @@ class dma_adapter extends uvm_reg_adapter;
 		dma.wdata = rw.data;
 		/* if (!dma.wr_en) */ 
 		/* 	dma.rdata = rw.data; */
-		return ;
+		return dma;
 	endfunction: reg2bus
 
 	function void bus2reg(uvm_sequence_item bus_item, ref uvm_reg_bus_op rw);
