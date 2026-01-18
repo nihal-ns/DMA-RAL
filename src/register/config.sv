@@ -4,7 +4,7 @@
 class config_reg extends uvm_reg;
   `uvm_object_utils(config_reg)
    
-  rand uvm_reg_field priority;
+  rand uvm_reg_field prio;
   rand uvm_reg_field auto_restart;
   rand uvm_reg_field interrupt_enable;
   rand uvm_reg_field burst_size;
@@ -17,8 +17,8 @@ class config_reg extends uvm_reg;
   endfunction
 
   function void build; 
-    priority = uvm_reg_field::type_id::create("priority");   
-    priority.configure(.parent(this), 
+    prio = uvm_reg_field::type_id::create("prio");   
+    prio.configure(.parent(this), 
                    .size(2), 
                    .lsb_pos(0),  
                    .access("RW"),   
