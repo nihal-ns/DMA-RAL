@@ -25,6 +25,6 @@ class base_test extends uvm_test;
 		phase.drop_objection(this);
 	endtask: run_phase
 
-endclass: test	
+endclass: base_test	
 
 `endif

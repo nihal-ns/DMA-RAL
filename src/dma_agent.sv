@@ -24,10 +24,7 @@ class dma_agent extends uvm_agent;
 
 	function void connect_phase(uvm_phase phase);
 		super.connect_phase(phase);
-		/* drv.seq_item_port.connect(seqr.seq_item_export); */  // Change the port commection
-		/* if (get_is_active() == UVM_ACTIVE) begin */               // should check 
-		/* 	drv.seq_item_port.connect(seqr.seq_item_export); */
-		/* end */
+		drv.seq_item_port.connect(seqr.seq_item_export); 
 	endfunction: connect_phase
 
 endclass: dma_agent

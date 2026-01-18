@@ -20,9 +20,17 @@ class dma_monitor extends uvm_monitor;
 
 	virtual task run_phase(uvm_phase phase);
 		forever begin
-			// monitor logic
+			dma_seq_item item = dma_seq_item::type_id::create("item");
+			repeat(2) @(vif.mon_cb);
+			item.rst_n = vif.mon_cb.rst_n ;
+			item.wr_en = vif.mon_cb.wr_en ;
+			item.rd_en = vif.mon_cb.rd_en ;
+			item.addr  = vif.mon_cb.addr  ;
+			item.wdata = vif.mon_cb.wdata ;
+			item.rdata = vif.mon_cb.rdata ;
+			mon_port.write(item);
 		end
-	endtask	
+	endtask: run_phase	
 
 endclass: dma_monitor 
 

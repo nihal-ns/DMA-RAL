@@ -1,3 +1,16 @@
+/* `include "register/ral_pkg.sv" */
+/* import ral_pkg::*; */
+`include "register/intr.sv"
+`include "register/ctrl.sv"
+`include "register/io_addr.sv"
+`include "register/mem_addr.sv"
+`include "register/extra_info.sv"
+`include "register/status.sv"
+`include "register/transfer_count.sv"
+`include "register/descriptor_addr.sv"
+`include "register/error_status.sv"
+`include "register/config.sv"
+
 class dma_reg_model extends uvm_reg_block;
   `uvm_object_utils(dma_reg_model)
   
@@ -8,12 +21,12 @@ class dma_reg_model extends uvm_reg_block;
   rand extra_info_reg				reg5;
 	rand status_reg						reg6;
 	rand transfer_count_reg		reg7;
-	rand descriptor_addr_reg	reg8 ;
-	rand error_status					reg9;
+	rand descriptor_addr_reg	reg8;
+	rand error_status_reg			reg9;
 	rand config_reg						reg10;
   
   function new (string name = "dma_reg_model");
-    super.new(name, build_coverage(UVM_NO_COVERAGE));
+		super.new(name, UVM_NO_COVERAGE);
   endfunction
 
   function void build;
@@ -61,16 +74,16 @@ class dma_reg_model extends uvm_reg_block;
 
 		// change the offset pending
     default_map = create_map("my_map", 0, 4, UVM_LITTLE_ENDIAN); // name, base, nBytes
-    default_map.add_reg(reg1, 'h0, "RW");  // reg, offset, access
-    default_map.add_reg(reg2, 'h4, "RW");
-    default_map.add_reg(reg3, 'h8, "RW");
-    default_map.add_reg(reg4, 'hC, "RW");
-    default_map.add_reg(reg5, 'h10, "RW");
-    default_map.add_reg(reg6, 'h10, "RW");
-    default_map.add_reg(reg7, 'h10, "RW");
-    default_map.add_reg(reg8, 'h10, "RW");
-    default_map.add_reg(reg9, 'h10, "RW");
-    default_map.add_reg(reg10, 'h10, "RW");
+    default_map.add_reg(reg1, 'h400, "RW");  // reg, offset, access
+    default_map.add_reg(reg2, 'h404, "RW");
+    default_map.add_reg(reg3, 'h408, "RW");
+    default_map.add_reg(reg4, 'h40C, "RW");
+    default_map.add_reg(reg5, 'h410, "RW");
+    default_map.add_reg(reg6, 'h414, "RW");
+    default_map.add_reg(reg7, 'h418, "RW");
+    default_map.add_reg(reg8, 'h41C, "RW");
+    default_map.add_reg(reg9, 'h420, "RW");
+    default_map.add_reg(reg10,'h424, "RW");
     
     lock_model();
   endfunction
