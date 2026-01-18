@@ -7,7 +7,7 @@ import dma_pkg::*;
 
 module top;
 	bit clk;
-	bit rst_n
+	bit rst_n;
 
 	always #5 clk = ~clk;
 

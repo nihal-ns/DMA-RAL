@@ -16,8 +16,8 @@ class dma_agent extends uvm_agent;
 		super.build_phase(phase);
 
 		if(get_is_active == UVM_ACTIVE) begin
-			drv = _driver::type_id::create("drv",this);         
-			seqr = _sequencer::type_id::create("seqr",this);   
+			drv = dma_driver::type_id::create("drv",this);         
+			seqr = dma_sequencer::type_id::create("seqr",this);   
 		end
 		mon = dma_monitor::type_id::create("mon",this);
 	endfunction: build_phase	
