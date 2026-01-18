@@ -1,3 +1,6 @@
+`ifndef TRANSFER_COUNT_SV
+`define TRANSFER_COUNT_SV
+
 class transfer_count_reg extends uvm_reg;
   `uvm_object_utils(transfer_count_reg)
    
@@ -20,3 +23,5 @@ class transfer_count_reg extends uvm_reg;
                    .individually_accessible(0));   
     endfunction
 endclass
+
+`endif

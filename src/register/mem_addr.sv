@@ -1,3 +1,6 @@
+`ifndef MEM_ADDR_SV
+`define MEM_ADDR_SV
+
 class mem_addr_reg extends uvm_reg;
   `uvm_object_utils(mem_addr_reg)
    
@@ -20,3 +23,5 @@ class mem_addr_reg extends uvm_reg;
                    .individually_accessible(0));   
     endfunction
 endclass
+
+`endif

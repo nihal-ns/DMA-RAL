@@ -1,3 +1,6 @@
+`ifndef ERROR_STATUS_SV
+`define ERROR_STATUS_SV
+
 class error_status_reg extends uvm_reg;
   `uvm_object_utils(error_status_reg)
    
@@ -104,3 +107,5 @@ class error_status_reg extends uvm_reg;
                    .individually_accessible(0));   
     endfunction
 endclass
+
+`endif

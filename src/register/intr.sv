@@ -1,3 +1,6 @@
+`ifndef INTR_SV
+`define INTR_SV
+
 class intr_reg extends uvm_reg;
 	`uvm_object_utils(intr_reg)
    
@@ -32,3 +35,5 @@ class intr_reg extends uvm_reg;
                      .individually_accessible(0));    
     endfunction
 endclass
+
+`endif

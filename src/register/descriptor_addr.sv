@@ -1,3 +1,6 @@
+`ifndef DESCRIPTOR_ADDR_SV
+`define DESCRIPTOR_ADDR_SV
+
 class descriptor_addr_reg extends uvm_reg;
   `uvm_object_utils(descriptor_addr_reg)
    
@@ -20,3 +23,5 @@ class descriptor_addr_reg extends uvm_reg;
                    .individually_accessible(0));   
     endfunction
 endclass
+
+`endif

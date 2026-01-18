@@ -1,3 +1,6 @@
+`ifndef EXTRA_INFO_SV
+`define EXTRA_INFO_SV
+
 class extra_info_reg extends uvm_reg;
   `uvm_object_utils(extra_info_reg)
    
@@ -20,3 +23,5 @@ class extra_info_reg extends uvm_reg;
                    .individually_accessible(0));   
     endfunction
 endclass
+
+`endif

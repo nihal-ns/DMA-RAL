@@ -1,3 +1,6 @@
+`ifndef CONFIG_SV
+`define CONFIG_SV
+
 class config_reg extends uvm_reg;
   `uvm_object_utils(config_reg)
    
@@ -10,7 +13,7 @@ class config_reg extends uvm_reg;
   rand uvm_reg_field reserved;
 
   function new (string name = "config_reg");
-    super.new(name, 321, UVM_NO_COVERAGE);
+    super.new(name, 32, UVM_NO_COVERAGE);
   endfunction
 
   function void build; 
@@ -92,3 +95,5 @@ class config_reg extends uvm_reg;
                    .individually_accessible(0));   
     endfunction
 endclass
+
+`endif
