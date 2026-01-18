@@ -10,6 +10,23 @@ class dma_subscriber extends uvm_subscriber#(dma_seq_item);
 	// Input coverage
 	covergroup dma_cvg ;
 		// coverpoint pending
+		WR_EN_CP : coverpoint mon_seq.wr_en {
+			bins wr_0 = {0};
+			bins wr_1 = {1};
+		}
+		RD_EN_CP : coverpoint mon_seq.rd_en { 
+			bins rd_0 = {0};
+			bins rd_1 = {1};
+		}
+		WDATA_CP : coverpoint mon_seq.wdata { 
+			options.auto_bin_max = 4
+		}
+		RDATA_CP : coverpoint mon_seq.rdata { 
+			options.auto_bin_max = 4
+		}
+		ADDR_CP : coverpoint mon_seq.addr  {
+			// pending
+		}
 	endgroup: dma_cvg
 
 	function new(string name = "dma_subscriber", uvm_component parent);
