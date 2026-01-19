@@ -25,9 +25,9 @@ class error_status_reg extends uvm_reg;
                    .access("RW1C"),   // check
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
+                   .has_reset(1),  
                    .is_rand(1),  
-                   .individually_accessible(0));   
+                   .individually_accessible(1));   
 
     timeout_error = uvm_reg_field::type_id::create("timeout_error"); 
     timeout_error.configure(.parent(this), 
@@ -36,9 +36,9 @@ class error_status_reg extends uvm_reg;
                    .access("RW1C"),   
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
+                   .has_reset(1),  
                    .is_rand(1),  
-                   .individually_accessible(0));   
+                   .individually_accessible(1));   
 
     alignment_error = uvm_reg_field::type_id::create("alignment_error");   
     alignment_error.configure(.parent(this), 
@@ -47,9 +47,9 @@ class error_status_reg extends uvm_reg;
                    .access("RW1C"),   
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
+                   .has_reset(1),  
                    .is_rand(1),  
-                   .individually_accessible(0));   
+                   .individually_accessible(1));   
 
     overflow_error = uvm_reg_field::type_id::create("overflow_error");   
     overflow_error.configure(.parent(this), 
@@ -58,9 +58,9 @@ class error_status_reg extends uvm_reg;
                    .access("RW1C"),   
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
+                   .has_reset(1),  
                    .is_rand(1),  
-                   .individually_accessible(0));   
+                   .individually_accessible(1));   
 
     underflow_error = uvm_reg_field::type_id::create("underflow_error");   
     underflow_error.configure(.parent(this), 
@@ -69,9 +69,9 @@ class error_status_reg extends uvm_reg;
                    .access("RW1C"),   
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
+                   .has_reset(1),  
                    .is_rand(1),  
-                   .individually_accessible(0));   
+                   .individually_accessible(1));   
 
     reserved = uvm_reg_field::type_id::create("reserved");   
     reserved.configure(.parent(this), 
@@ -80,9 +80,9 @@ class error_status_reg extends uvm_reg;
                    .access("RO"),   
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
-                   .is_rand(1),   // check again
-                   .individually_accessible(0));   
+                   .has_reset(1),  
+                   .is_rand(0),   // check again
+                   .individually_accessible(1));   
 
     error_code = uvm_reg_field::type_id::create("error_code");   
     error_code.configure(.parent(this), 
@@ -91,9 +91,9 @@ class error_status_reg extends uvm_reg;
                    .access("RO"),   
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
-                   .is_rand(1),  
-                   .individually_accessible(0));   
+                   .has_reset(1),  
+                   .is_rand(0),  
+                   .individually_accessible(1));   
 
     error_addr_offset = uvm_reg_field::type_id::create("error_addr_offset");   
     error_addr_offset.configure(.parent(this), 
@@ -102,9 +102,9 @@ class error_status_reg extends uvm_reg;
                    .access("RO"),   
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
-                   .is_rand(1),  
-                   .individually_accessible(0));   
+                   .has_reset(1),  
+                   .is_rand(0),  
+                   .individually_accessible(1));   
     endfunction
 endclass
 

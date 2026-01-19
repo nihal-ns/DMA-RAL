@@ -19,8 +19,8 @@ class transfer_count_reg extends uvm_reg;
                    .volatile(0),  
                    .reset(0),  
                    .has_reset(1),  
-                   .is_rand(1),  
-                   .individually_accessible(0));   
+                   .is_rand(0),  
+                   .individually_accessible(1));   
     endfunction
 endclass
 

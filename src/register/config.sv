@@ -24,9 +24,9 @@ class config_reg extends uvm_reg;
                    .access("RW"),   
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
+                   .has_reset(1),  
                    .is_rand(1),  
-                   .individually_accessible(0));   
+                   .individually_accessible(1));   
 
     auto_restart = uvm_reg_field::type_id::create("auto_restart"); 
     auto_restart.configure(.parent(this), 
@@ -35,9 +35,9 @@ class config_reg extends uvm_reg;
                    .access("RW"),   
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
+                   .has_reset(1),  
                    .is_rand(1),  
-                   .individually_accessible(0));   
+                   .individually_accessible(1));   
 
     interrupt_enable = uvm_reg_field::type_id::create("interrupt_enable");   
     interrupt_enable.configure(.parent(this), 
@@ -46,9 +46,9 @@ class config_reg extends uvm_reg;
                    .access("RW"),   
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
+                   .has_reset(1),  
                    .is_rand(1),  
-                   .individually_accessible(0));   
+                   .individually_accessible(1));   
 
     burst_size = uvm_reg_field::type_id::create("burst_size");   
     burst_size.configure(.parent(this), 
@@ -57,9 +57,9 @@ class config_reg extends uvm_reg;
                    .access("RW"),   
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
+                   .has_reset(1),  
                    .is_rand(1),  
-                   .individually_accessible(0));   
+                   .individually_accessible(1));   
 
     data_width = uvm_reg_field::type_id::create("data_width");   
     data_width.configure(.parent(this), 
@@ -68,9 +68,9 @@ class config_reg extends uvm_reg;
                    .access("RW"),   
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
+                   .has_reset(1),  
                    .is_rand(1),  
-                   .individually_accessible(0));   
+                   .individually_accessible(1));   
 
     descriptor_mode = uvm_reg_field::type_id::create("descriptor_mode");   
     descriptor_mode.configure(.parent(this), 
@@ -79,9 +79,9 @@ class config_reg extends uvm_reg;
                    .access("RW"),   
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
+                   .has_reset(1),  
                    .is_rand(1),  
-                   .individually_accessible(0));   
+                   .individually_accessible(1));   
 
     reserved = uvm_reg_field::type_id::create("reserved");   
     reserved.configure(.parent(this), 
@@ -90,9 +90,9 @@ class config_reg extends uvm_reg;
                    .access("RO"),   
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
-                   .is_rand(1),   // check again
-                   .individually_accessible(0));   
+                   .has_reset(1),  
+                   .is_rand(0),   // check again
+                   .individually_accessible(1));   
     endfunction
 endclass
 

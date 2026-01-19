@@ -23,7 +23,7 @@ class ctrl_reg extends uvm_reg;
                         .reset(0),  
                         .has_reset(1),  
                         .is_rand(1),  
-                        .individually_accessible(0));  
+                        .individually_accessible(1));  
     
     w_count = uvm_reg_field::type_id::create("w_count");   
     w_count.configure(.parent(this),  
@@ -34,7 +34,7 @@ class ctrl_reg extends uvm_reg;
                       .reset(0),  
                       .has_reset(1),  
                       .is_rand(1),  
-                      .individually_accessible(0));     
+                      .individually_accessible(1));     
             
     io_mem = uvm_reg_field::type_id::create("io_mem");   
     io_mem.configure(.parent(this),  
@@ -45,7 +45,7 @@ class ctrl_reg extends uvm_reg;
                      .reset(0),   
                      .has_reset(1),   
                      .is_rand(1),   
-                     .individually_accessible(0));   
+                     .individually_accessible(1));   
             
     reserved = uvm_reg_field::type_id::create("reserved");   
     reserved.configure(.parent(this),  
@@ -56,7 +56,7 @@ class ctrl_reg extends uvm_reg;
                        .reset(0),    
                        .has_reset(1),    
                        .is_rand(0),    // check this again
-                       .individually_accessible(0));        
+                       .individually_accessible(1));        
     endfunction
 endclass
 

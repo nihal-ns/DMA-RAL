@@ -20,19 +20,19 @@ class intr_reg extends uvm_reg;
                      .volatile(0), 
                      .reset(0), 
                      .has_reset(1), 
-                     .is_rand(1), 
-                     .individually_accessible(0)); 
+                     .is_rand(0), 
+                     .individually_accessible(1)); 
     
     intr_mask = uvm_reg_field::type_id::create("mask");   
     intr_mask.configure(.parent(this), 
                      .size(16), 
                      .lsb_pos(16), 
-                     .access("RW"),  
+                     .access("RO"),  // changed from RW
                      .volatile(0), 
                      .reset(0), 
                      .has_reset(1), 
-                     .is_rand(1), 
-                     .individually_accessible(0));    
+                     .is_rand(0), 
+                     .individually_accessible(1));    
     endfunction
 endclass
 

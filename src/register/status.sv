@@ -25,8 +25,8 @@ class status_reg extends uvm_reg;
                    .volatile(0),  
                    .reset(0),  
                    .has_reset(1),  
-                   .is_rand(1),  
-                   .individually_accessible(0));   
+                   .is_rand(0),  
+                   .individually_accessible(1));   
 
     done = uvm_reg_field::type_id::create("done"); 
     done.configure(.parent(this), 
@@ -35,9 +35,9 @@ class status_reg extends uvm_reg;
                    .access("RO"),   
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
-                   .is_rand(1),  
-                   .individually_accessible(0));   
+                   .has_reset(1),  
+                   .is_rand(0),  
+                   .individually_accessible(1));   
 
     error = uvm_reg_field::type_id::create("error");   
     error.configure(.parent(this), 
@@ -46,9 +46,9 @@ class status_reg extends uvm_reg;
                    .access("RO"),   
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
-                   .is_rand(1),  
-                   .individually_accessible(0));   
+                   .has_reset(1),  
+                   .is_rand(0),  
+                   .individually_accessible(1));   
 
     paused = uvm_reg_field::type_id::create("paused");   
     paused.configure(.parent(this), 
@@ -57,9 +57,9 @@ class status_reg extends uvm_reg;
                    .access("RO"),   
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
-                   .is_rand(1),  
-                   .individually_accessible(0));   
+                   .has_reset(1),  
+                   .is_rand(0),  
+                   .individually_accessible(1));   
 
     current_state = uvm_reg_field::type_id::create("current_state");   
     current_state.configure(.parent(this), 
@@ -68,9 +68,9 @@ class status_reg extends uvm_reg;
                    .access("RO"),   
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
-                   .is_rand(1),  
-                   .individually_accessible(0));   
+                   .has_reset(1),  
+                   .is_rand(0),  
+                   .individually_accessible(1));   
 
     fifo_level = uvm_reg_field::type_id::create("fifo_level");   
     fifo_level.configure(.parent(this), 
@@ -79,9 +79,9 @@ class status_reg extends uvm_reg;
                    .access("RO"),   
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
-                   .is_rand(1),  
-                   .individually_accessible(0));   
+                   .has_reset(1),  
+                   .is_rand(0),  
+                   .individually_accessible(1));   
 
     reserved = uvm_reg_field::type_id::create("reserved");   
     reserved.configure(.parent(this), 
@@ -90,9 +90,9 @@ class status_reg extends uvm_reg;
                    .access("RO"),   
                    .volatile(0),  
                    .reset(0),  
-                   .has_reset(`1),  
-                   .is_rand(1),   // check again
-                   .individually_accessible(0));   
+                   .has_reset(1),  
+                   .is_rand(0),   // check again
+                   .individually_accessible(1));   
     endfunction
 endclass
 
