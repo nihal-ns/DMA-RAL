@@ -9,6 +9,7 @@ class dma_adapter extends uvm_reg_adapter;
 		dma_seq_item dma;    
 		dma = dma_seq_item::type_id::create("dma");
 		dma.wr_en = (rw.kind == UVM_WRITE);
+		dma.rd_en = (rw.kind == UVM_READ);
 		dma.addr  = rw.addr;
 		dma.wdata = rw.data;
 		/* if (!dma.wr_en) */ 
