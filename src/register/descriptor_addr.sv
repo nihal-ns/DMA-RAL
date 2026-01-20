@@ -32,6 +32,7 @@ class descriptor_addr_reg extends uvm_reg;
 	function void sample_values();
 		super.sample_values();
 		descriptor_reg_cov.sample();
+	endfunction
 	
   function void build; 
     descriptor_addr = uvm_reg_field::type_id::create("descriptor_addr");   
