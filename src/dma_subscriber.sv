@@ -19,14 +19,14 @@ class dma_subscriber extends uvm_subscriber#(dma_seq_item);
 			bins rd_1 = {1};
 		}
 		WDATA_CP : coverpoint mon_seq.wdata { 
-			options.auto_bin_max = 4
+			option.auto_bin_max = 4;
 		}
 		RDATA_CP : coverpoint mon_seq.rdata { 
-			options.auto_bin_max = 4
+			option.auto_bin_max = 4;
 		}
-		ADDR_CP : coverpoint mon_seq.addr  {
-			// pending
-		}
+		/* ADDR_CP : coverpoint mon_seq.addr  { */
+		/* 	// pending */
+		/* } */
 	endgroup: dma_cvg
 
 	function new(string name = "dma_subscriber", uvm_component parent);
