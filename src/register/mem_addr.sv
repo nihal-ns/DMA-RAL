@@ -12,6 +12,7 @@ class mem_addr_reg extends uvm_reg;
 		mem_addr_cp: coverpoint mem_addr.value	{
 			option.auto_bin_max  = 4;
 		}	
+	endgroup
 	
   function new (string name = "mem_addr_reg");
     super.new(name, 32, UVM_CVR_FIELD_VALS);
