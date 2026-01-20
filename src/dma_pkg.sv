@@ -3,6 +3,7 @@ package dma_pkg;
     `include "uvm_macros.svh"
 
     `include "dma_reg_block.sv"
+		`include "dma_report_server.sv"
 
     `include "dma_seq_item.sv"
     `include "dma_sequencer.sv"
