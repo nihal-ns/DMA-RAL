@@ -9,9 +9,41 @@ class ctrl_reg extends uvm_reg;
   rand uvm_reg_field io_mem;
   rand uvm_reg_field reserved;
 
+	covergroup ctrl_reg_cov;
+		option.per_instance = 1;
+
+		start_dma_cp: coverpoint start_dma.value {
+			bins start_dma_0 = {0};
+			bins start_dma_1 = {1};
+		}
+		w_count_cp: coverpoint w_count.value {
+			option.auto_bin_max  = 4;
+		}
+		io_mem_cp: coverpoint io_mem.value {
+			bins io_mem_0 = {0};
+			bins io_mem_1 = {1};
+		}
+	endgroup
+
   function new (string name = "ctrl_reg");
-    super.new(name, 32, UVM_NO_COVERAGE);
+    super.new(name, 32, UVM_CVR_FIELD_VALS);
+		if(has_coverage(UVM_CVR_FIELD_VALS))
+			ctrl_reg_cov = new();
   endfunction
+
+	function void sample(
+		uvm_reg_data_t data,
+		uvm_reg_data_t byte_en,
+		bit is_read,
+		uvm_reg_map map
+	);
+		ctrl_reg_cov.sample();
+	endfunction
+
+	function void sample_values();
+		super.sample_values();
+		ctrl_reg_cov.sample();
+	endfunction
 
   function void build; 
     start_dma = uvm_reg_field::type_id::create("start_dma");   

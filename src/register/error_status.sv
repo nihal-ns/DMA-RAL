@@ -13,16 +13,57 @@ class error_status_reg extends uvm_reg;
   rand uvm_reg_field error_code;
   rand uvm_reg_field error_addr_offset;
 
+	covergroup error_reg_cov;
+		option.per_instance = 1;
+
+		bus_cp: coverpoint bus_error.value	{
+			bins bus_0 = {0};
+			bins bus_1 = {1};
+		}	
+		timeout_cp: coverpoint timeout_error.value	{
+			bins timeout_0 = {0};
+			bins timeout_1 = {1};
+		}	
+		alignment_cp: coverpoint alignment_error.value	{
+			bins alignment_0 = {0};
+			bins alignment_1 = {1};
+		}	
+		overflow_cp: coverpoint overflow_error.value	{
+			bins overflow_0 = {0};
+			bins overflow_1 = {1};
+		}	
+		underflow_cp: coverpoint underflow_error.value	{
+			bins underflow_0 = {0};
+			bins underflow_1 = {1};
+		}	
+	endgroup
+
   function new (string name = "error_status_reg");
-    super.new(name, 32, UVM_NO_COVERAGE);
+    super.new(name, 32, UVM_CVR_FIELD_VALS);
+		if(has_coverage(UVM_CVR_FIELD_VALS))
+			error_reg_cov = new();
   endfunction
+
+	function void sample(
+		uvm_reg_data_t data,
+		uvm_reg_data_t byte_en,
+		bit is_read,
+		uvm_reg_map map
+	);
+		error_reg_cov.sample();
+	endfunction
+
+	function void sample_values();
+		super.sample_values();
+		error_reg_cov.sample();
+	endfunction
 
   function void build; 
     bus_error = uvm_reg_field::type_id::create("bus_error");   
     bus_error.configure(.parent(this), 
                    .size(1), 
                    .lsb_pos(0),  
-                   .access("RW1C"),   // check
+                   .access("W1C"),   // check
                    .volatile(0),  
                    .reset(0),  
                    .has_reset(1),  
@@ -33,7 +74,7 @@ class error_status_reg extends uvm_reg;
     timeout_error.configure(.parent(this), 
                    .size(1), 
                    .lsb_pos(1),  
-                   .access("RW1C"),   
+                   .access("W1C"),   
                    .volatile(0),  
                    .reset(0),  
                    .has_reset(1),  
@@ -44,7 +85,7 @@ class error_status_reg extends uvm_reg;
     alignment_error.configure(.parent(this), 
                    .size(1), 
                    .lsb_pos(2),  
-                   .access("RW1C"),   
+                   .access("W1C"),   
                    .volatile(0),  
                    .reset(0),  
                    .has_reset(1),  
@@ -55,7 +96,7 @@ class error_status_reg extends uvm_reg;
     overflow_error.configure(.parent(this), 
                    .size(1), 
                    .lsb_pos(3),  
-                   .access("RW1C"),   
+                   .access("W1C"),   
                    .volatile(0),  
                    .reset(0),  
                    .has_reset(1),  
@@ -66,7 +107,7 @@ class error_status_reg extends uvm_reg;
     underflow_error.configure(.parent(this), 
                    .size(1), 
                    .lsb_pos(4),  
-                   .access("RW1C"),   
+                   .access("W1C"),   
                    .volatile(0),  
                    .reset(0),  
                    .has_reset(1),  

@@ -6,10 +6,33 @@ class descriptor_addr_reg extends uvm_reg;
    
   rand uvm_reg_field descriptor_addr;
 
+	covergroup descriptor_reg_cov;
+		option.per_instance = 1;
+
+		descriptor_cp: coverpoint descriptor_addr.value	{
+			option.auto_bin_max  = 4;
+		}	
+	endgroup
+
   function new (string name = "descriptor_addr_reg");
-    super.new(name,32,UVM_NO_COVERAGE); //32 -> Register Width
+    super.new(name, 32, UVM_CVR_FIELD_VALS);
+		if(has_coverage(UVM_CVR_FIELD_VALS))
+			descriptor_reg_cov = new();
   endfunction
 
+	function void sample(
+		uvm_reg_data_t data,
+		uvm_reg_data_t byte_en,
+		bit is_read,
+		uvm_reg_map map
+	);
+		descriptor_reg_cov.sample();
+	endfunction
+
+	function void sample_values();
+		super.sample_values();
+		descriptor_reg_cov.sample();
+	
   function void build; 
     descriptor_addr = uvm_reg_field::type_id::create("descriptor_addr");   
     descriptor_addr.configure(.parent(this), 
