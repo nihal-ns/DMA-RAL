@@ -1,6 +1,6 @@
 class mem_addr_seq extends uvm_sequence;
 	`uvm_object_utils(mem_addr_seq) 
-	dma_reg_block regbk;
+	dma_reg_model regbk;
 
 	function new (string name = "mem_addr_seq"); 
 		super.new(name); 
