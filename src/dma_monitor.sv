@@ -22,7 +22,6 @@ class dma_monitor extends uvm_monitor;
 		forever begin
 			dma_seq_item item = dma_seq_item::type_id::create("item");
 			repeat(2) @(vif.mon_cb);
-			item.rst_n = vif.mon_cb.rst_n ;
 			item.wr_en = vif.mon_cb.wr_en ;
 			item.rd_en = vif.mon_cb.rd_en ;
 			item.addr  = vif.mon_cb.addr  ;
