@@ -32,7 +32,8 @@ class io_addr_reg extends uvm_reg;
 	function void sample_values();
 		super.sample_values();
 		io_reg_cov.sample();
-	e
+	endfunction
+
   function void build; 
     io_addr = uvm_reg_field::type_id::create("io_addr");   
     io_addr.configure(.parent(this), 
