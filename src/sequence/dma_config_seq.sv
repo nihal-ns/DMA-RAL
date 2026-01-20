@@ -19,14 +19,14 @@ class config_seq extends uvm_sequence;
 
 		`uvm_info(get_type_name(), $sformatf("CONFIGURE[1:0] = %0d | CONFIGURE[2] = %0d | CONFIGURE[3] = %0d | CONFIGURE[5:4] = %0d | CONFIGURE[7:6] = %0d | CONFIGURE[8] = %0d", w_data[1:0] , w_data[2] , w_data[3] , w_data[5:4] , w_data[7:6] , w_data[8] ), UVM_MEDIUM) 
 		`uvm_info(get_type_name(), $sformatf("Writing CONFIGURE = %0d", w_data), UVM_MEDIUM) 
-		regbk.reg_file.configuration.write( status, w_data,.parent(this) ); 
+		regbk.configuration.write( status, w_data,.parent(this) ); 
 
     if (status != UVM_IS_OK) `uvm_error(get_type_name(), "CONFIGURE register write failed") 
 
-		mirror = regbk.reg_file.configuration.get_mirrored_value(); 
+		mirror = regbk.configuration.get_mirrored_value(); 
 		`uvm_info(get_type_name(), $sformatf("CONFIGURE mirrored = %0d", mirror), UVM_MEDIUM)
 
-		regbk.reg_file.configuration.read( status, r_data,.parent(this) ); 
+		regbk.configuration.read( status, r_data,.parent(this) ); 
 		`uvm_info(get_type_name(), $sformatf("Read CONFIGURE = %0d", r_data), UVM_MEDIUM) 
 
 		if (status != UVM_IS_OK) `uvm_error(get_type_name(), "CONFIGURE register read failed") 

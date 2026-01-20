@@ -15,14 +15,14 @@ class extra_info_seq extends uvm_sequence;
 
 		`uvm_info(get_type_name(), $sformatf(" EXTRA_INFO[31:0] = %0d", w_data), UVM_MEDIUM) 
 		`uvm_info(get_type_name(), $sformatf("Writing EXTRA_INFO= %0d", w_data), UVM_MEDIUM) 
-		regbk.reg_file.extra_info.write( status, w_data,.parent(this) ); 
+		regbk.extra_info.write( status, w_data,.parent(this) ); 
 
 		if (status != UVM_IS_OK) `uvm_error(get_type_name(), "EXTRA_INFO register write failed") 
 		
-		mirror = regbk.reg_file.extra_info.get_mirrored_value(); 
+		mirror = regbk.extra_info.get_mirrored_value(); 
 		`uvm_info(get_type_name(), $sformatf("EXTRA_INFO mirrored = %0d", mirror), UVM_MEDIUM)
 
-		regbk.reg_file.extra_info.read( status, r_data,.parent(this) ); 
+		regbk.extra_info.read( status, r_data,.parent(this) ); 
 		`uvm_info(get_type_name(), $sformatf("Read EXTRA_INFO = %0d", r_data), UVM_MEDIUM) 
 
 		if (status != UVM_IS_OK) `uvm_error(get_type_name(), "EXTRA_INFO register read failed") 

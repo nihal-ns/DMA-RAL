@@ -16,14 +16,14 @@ class ctrl_seq extends uvm_sequence;
 
 		`uvm_info(get_type_name(), $sformatf(" CTRL[0] = %0d | CTRL[15:1] = %0d | CTRL[16] = %0d", w_data[0], w_data[15:1] ,w_data[16]), UVM_MEDIUM) 
 		`uvm_info(get_type_name(), $sformatf("Writing CTRL = %0d", w_data), UVM_MEDIUM) 
-		regbk.reg_file.ctrl.write( status, w_data,.parent(this) ); 
+		regbk.ctrl.write( status, w_data,.parent(this) ); 
 
     if (status != UVM_IS_OK) `uvm_error(get_type_name(), "CTRL register write failed") 
 
-		mirror = regbk.reg_file.ctrl.get_mirrored_value(); 
+		mirror = regbk.ctrl.get_mirrored_value(); 
 		`uvm_info(get_type_name(), $sformatf("CTRL mirrored = %0d", mirror), UVM_MEDIUM)
 
-		regbk.reg_file.ctrl.read( status, r_data,.parent(this) ); 
+		regbk.ctrl.read( status, r_data,.parent(this) ); 
 		`uvm_info(get_type_name(), $sformatf("Read CTRL = %0d", r_data), UVM_MEDIUM) 
 
 		if (status != UVM_IS_OK) `uvm_error(get_type_name(), "CTRL register read failed") 
