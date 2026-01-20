@@ -1,6 +1,6 @@
 class extra_info_seq extends uvm_sequence;
 	`uvm_object_utils(extra_info_seq) 
-	dma_reg_block regbk;
+	dma_reg_model regbk;
 
 	function new (string name = "extra_info_seq"); 
 		super.new(name); 

@@ -1,6 +1,6 @@
 class config_seq extends uvm_sequence;
 	`uvm_object_utils(config_seq) 
-	dma_reg_block regbk;
+	dma_reg_model regbk;
 
 	function new (string name = "config_seq"); 
 		super.new(name); 
