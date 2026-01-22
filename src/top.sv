@@ -1,7 +1,8 @@
-`include "dma_defines.sv"
+/* `include "dma_defines.sv" */
 `include "dma_design.sv"
-`include "dma_interface.sv"
-`include "dma_packages.sv"
+`include "dma_intf.sv"
+/* `include "dma_pkg.sv" */
+
 import uvm_pkg::*;
 import dma_pkg::*;
 
@@ -10,10 +11,16 @@ module top;
 	bit rst_n;
 
 	always #5 clk = ~clk;
+	
+	initial begin
+		rst_n = 0;
+		repeat(2) @(posedge clk) 
+		rst_n = 1;
+	end
 
-	dma_intf vif(clk);
+	dma_intf vif(clk, rst_n);
 
-	dma DUT(
+	dma_design DUT(
 		.clk(clk),
 		.rst_n(rst_n),
 		.wr_en(vif.wr_en),

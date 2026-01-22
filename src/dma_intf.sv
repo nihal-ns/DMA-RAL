@@ -12,6 +12,7 @@ interface dma_intf(input bit clk, rst_n);
     output wr_en;
     output rd_en;
     output wdata;
+		input rdata;
   endclocking: drv_cb
   
   clocking mon_cb @(posedge clk);

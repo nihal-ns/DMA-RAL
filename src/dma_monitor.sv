@@ -22,11 +22,12 @@ class dma_monitor extends uvm_monitor;
 		forever begin
 			dma_seq_item item = dma_seq_item::type_id::create("item");
 			repeat(2) @(vif.mon_cb);
-			item.wr_en = vif.mon_cb.wr_en ;
-			item.rd_en = vif.mon_cb.rd_en ;
-			item.addr  = vif.mon_cb.addr  ;
-			item.wdata = vif.mon_cb.wdata ;
-			item.rdata = vif.mon_cb.rdata ;
+			item.wr_en = vif.wr_en ;
+			item.rd_en = vif.rd_en ;
+			item.addr  = vif.addr  ;
+			item.wdata = vif.wdata ;
+			item.rdata = vif.rdata ;
+			`uvm_info(get_type_name,$sformatf("\nMonitor: wr:%0b | rd:%0b || wdata:%0d | rdata:%0d | addr:%0d",vif.wr_en, vif.rd_en, vif.wdata, vif.rdata, vif.addr), UVM_MEDIUM)
 			mon_port.write(item);
 		end
 	endtask: run_phase	

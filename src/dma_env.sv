@@ -7,7 +7,7 @@ class dma_env extends uvm_env;
 	dma_agent agt;
 	dma_reg_model regbk;
 	dma_adapter adapter;
-	dma_coverage cov; 
+	dma_subscriber cov; 
 	uvm_reg_predictor #(dma_seq_item) predictor;
 
 	function new(string name = "dma_env", uvm_component parent);
@@ -16,11 +16,12 @@ class dma_env extends uvm_env;
 
 	function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
-		agt = dma_agent_active::type_id::create("agt",this);
+		agt = dma_agent::type_id::create("agt",this);
 		regbk = dma_reg_model::type_id::create("regbk", this);
 		adapter = dma_adapter::type_id::create("adapter");
 		predictor = uvm_reg_predictor#(dma_seq_item)::type_id::create("predictor", this);
-		cov = dma_coverage::type_id::create("cov",this);
+		cov = dma_subscriber::type_id::create("cov",this);
+		regbk.set_hdl_path_root("top.DUT");
 		regbk.build();
 	endfunction: build_phase	
 

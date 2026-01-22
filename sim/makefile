@@ -52,7 +52,9 @@ compile:
 # --- Simulation ---
 simulate: compile
 	@echo "--- Running Simulation (Test: $(TEST)) ---"
-	@vsim -c -l $(COV_LOG_FILE) $(TOP) $(VSIM_OPTS) -do "run -all; quit"
+	# @vsim -c -l $(COV_LOG_FILE) $(TOP) $(VSIM_OPTS) -do "run -all; quit"
+	# NEW LINE (Add -voptargs=+acc):
+	@vsim -voptargs=+acc=npr -c -l $(COV_LOG_FILE) $(TOP) $(VSIM_OPTS) -do "run -all; quit"
 
 # --- Coverage Target ---
 cov: 
