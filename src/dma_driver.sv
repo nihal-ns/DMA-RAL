@@ -28,17 +28,13 @@ class dma_driver extends uvm_driver#(dma_seq_item);
 	task drive;
 		if(req.rd_en)
 			@(vif.drv_cb);
-
 		vif.wr_en <= req.wr_en;
 		vif.rd_en <= req.rd_en;
 		vif.wdata <= req.wdata;
 		vif.addr  <= req.addr;
 		`uvm_info(get_type_name,$sformatf("\nDriver: wr:%0b | rd:%0b || data:%0d | addr:%0d",req.wr_en, req.rd_en, req.wdata, req.addr), UVM_MEDIUM)
-	if(req.rd_en) begin
+		if(req.rd_en) 
 			@(vif.drv_cb);
-req.rdata = vif.rdata; 
-		$display("rdata:%0d",req.rdata);
-	end
 		else
 			repeat(2)@(vif.drv_cb);
 	endtask: drive
