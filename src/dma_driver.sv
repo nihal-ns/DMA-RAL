@@ -26,17 +26,32 @@ class dma_driver extends uvm_driver#(dma_seq_item);
 	endtask: run_phase
 	
 	task drive;
-		if(req.rd_en)
-			@(vif.drv_cb);
+		@(vif.drv_cb);
+
 		vif.wr_en <= req.wr_en;
 		vif.rd_en <= req.rd_en;
 		vif.wdata <= req.wdata;
 		vif.addr  <= req.addr;
-		`uvm_info(get_type_name,$sformatf("\nDriver: wr:%0b | rd:%0b || data:%0d | addr:%0d",req.wr_en, req.rd_en, req.wdata, req.addr), UVM_MEDIUM)
-		if(req.rd_en) 
-			@(vif.drv_cb);
-		else
-			repeat(2)@(vif.drv_cb);
+		`uvm_info(get_type_name,$sformatf("Driver: wr:%0b | rd:%0b || data:%0d | addr:%0d", req.wr_en, req.rd_en, req.wdata, req.addr), UVM_MEDIUM)
+
+		repeat(2) @(vif.drv_cb);
+
+		req.rdata = vif.rdata; 
+
+        /* vif.wr_en <= 0; */
+        /* vif.rd_en <= 0; */
+
+		/* if(req.rd_en) */
+		/* 	@(vif.drv_cb); */
+		/* vif.wr_en <= req.wr_en; */
+		/* vif.rd_en <= req.rd_en; */
+		/* vif.wdata <= req.wdata; */
+		/* vif.addr  <= req.addr; */
+		/* `uvm_info(get_type_name,$sformatf("\nDriver: wr:%0b | rd:%0b || data:%0d | addr:%0d",req.wr_en, req.rd_en, req.wdata, req.addr), UVM_MEDIUM) */
+		/* if(req.rd_en) */ 
+		/* 	@(vif.drv_cb); */
+		/* else */
+		/* 	repeat(2)@(vif.drv_cb); */
 	endtask: drive
 
 endclass: dma_driver	

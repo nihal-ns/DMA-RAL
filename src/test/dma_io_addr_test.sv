@@ -14,6 +14,7 @@ class dma_io_addr_test extends base_test;
 	task run_phase(uvm_phase phase); 
 		phase.raise_objection(this);
 		seq.regbk = env.regbk; 
+	repeat(3)
 		seq.start(env.agt.seqr); 
 		phase.drop_objection(this); 
 		// phase.phase_done.set_drain_time(this, 20); 

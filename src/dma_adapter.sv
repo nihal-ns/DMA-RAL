@@ -24,6 +24,7 @@ class dma_adapter extends uvm_reg_adapter;
 		rw.data = dma.wr_en ? dma.wdata : dma.rdata;
 		rw.addr = dma.addr;
 		rw.status = UVM_IS_OK;
+	/* $display("wr_En = %b, rd_En = %B, addr = %d, wdata = %d, rdata = %d", dma.wr_en, dma.rd_en, dma.addr, dma.wdata, dma.rdata); */
 	endfunction: bus2reg
 
 endclass: dma_adapter

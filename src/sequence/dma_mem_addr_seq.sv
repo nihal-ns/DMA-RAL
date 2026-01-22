@@ -13,32 +13,31 @@ class mem_addr_seq extends uvm_sequence;
 
 		w_data = $urandom();
     
-		`uvm_info(get_type_name()," <------------ MEM_ADDR SEQUENCE STARTED ----------->\n ", UVM_MEDIUM)
+		`uvm_info(get_type_name(),"\n|--------------------------- MEM_ADDR SEQUENCE STARTED --------------------------------|\n ", UVM_MEDIUM)
 
-		`uvm_info(get_type_name(), $sformatf(" MEM_ADDR[31:0] = %0d", w_data), UVM_MEDIUM)
 		`uvm_info(get_type_name(), $sformatf(" Writing MEM_ADDR = %0d\n", w_data), UVM_MEDIUM)
 		regbk.mem_addr.write(status, w_data);
 
 		if (status != UVM_IS_OK) 
 			`uvm_error(get_type_name(), "MEM_ADDR register write failed\n")
 
-		/* mirror = regbk.mem_addr.get_mirrored_value(); */
-		/* `uvm_info(get_type_name(), $sformatf("MEM_ADDR mirrored = %0d\n", mirror), UVM_MEDIUM) */
-
-		regbk.mem_addr.read( status, r_data);
+		regbk.mem_addr.read(status, r_data);
 		`uvm_info(get_type_name(), $sformatf("Read MEM_ADDR = %0d\n", r_data), UVM_MEDIUM)
 
 		if (status != UVM_IS_OK) 
 			`uvm_error(get_type_name(), "MEM_ADDR register read failed\n")
 
+		// Display values
+		$display("*****************************************CHECK*****************************************");
+		$display("Field\t\t   Write Value\t   Read Value");
+		$display("mem_addr\t     %0h\t    %0h",w_data, r_data);
+
 		if (r_data != w_data) 
-			`uvm_error(get_type_name(), "mem_addr mismatch\n")
+			`uvm_error(get_type_name(), "mem_addr is RO\n")
 		else 
-			`uvm_info(get_type_name(),"MEM_ADDR register contents passed",UVM_NONE)
+			`uvm_info(get_type_name(),"mem_addr is RW",UVM_NONE)
 
-		`uvm_info(get_type_name(), $sformatf(" MEM_ADDR[31:0] = %0d\n" , r_data), UVM_MEDIUM)
-
-		`uvm_info(get_type_name()," <------------ MEM_ADDR SEQUENCE ENDED ----------->\n ", UVM_MEDIUM)
+		`uvm_info(get_type_name(),"\n |------------------------------- MEM_ADDR SEQUENCE ENDED -----------------------------|\n ", UVM_MEDIUM)
 	endtask
 
 endclass
