@@ -12,7 +12,8 @@ class io_addr_seq extends uvm_sequence;
     
 		w_data = $urandom();
 
-		`uvm_info(get_type_name()," \n|---------------------------- IO_ADDR SEQUENCE STARTED -----------------------------------|\n ", UVM_MEDIUM) 	
+		if(m_sequencer.get_report_verbosity_level() >= UVM_MEDIUM)
+			$display(" \n|---------------------------- IO_ADDR SEQUENCE STARTED -----------------------------------|\n "); 	
 
 		`uvm_info(get_type_name(), $sformatf("Writing IO_ADDR = %0d\n", w_data), UVM_MEDIUM) 
 		regbk.io_addr.write(status, w_data ); 
@@ -35,8 +36,8 @@ class io_addr_seq extends uvm_sequence;
 			`uvm_error(get_type_name(), "io_addr is RO") 
 		else 
 			`uvm_info(get_type_name(),"io_addr is RW ",UVM_NONE)
-		
-		`uvm_info(get_type_name(),"\n|--------------------------------------- IO_ADDR SEQUENCE ENDED ----------------------------------|\n ", UVM_MEDIUM) 	
+		if(m_sequencer.get_report_verbosity_level() >= UVM_MEDIUM)	
+			$display("\n|--------------------------------------- IO_ADDR SEQUENCE ENDED ----------------------------------|\n "); 	
 	endtask
 
 endclass
