@@ -17,13 +17,14 @@ package dma_pkg;
     `include "sequence/dma_config_seq.sv"
     `include "sequence/dma_ctrl_seq.sv"
     `include "sequence/dma_descriptor_addr_seq.sv"
-    `include "sequence/dma_error_status_seq.sv"  // yet to be added
+    `include "sequence/dma_error_status_seq.sv"  
     `include "sequence/dma_extra_info_seq.sv"
-    `include "sequence/dma_intr_seq.sv"          // yet to be added
+    `include "sequence/dma_intr_seq.sv"         
     `include "sequence/dma_io_addr_seq.sv"
     `include "sequence/dma_mem_addr_seq.sv"
-    `include "sequence/dma_status_seq.sv"        // yet to be added
-    `include "sequence/dma_transfer_count_seq.sv" // yet to be added
+    `include "sequence/dma_status_seq.sv"       
+    `include "sequence/dma_transfer_count_seq.sv"
+		`include "sequence/dma_regression_seq.sv"
 
     `include "test/base_test.sv"
     `include "test/dma_config_test.sv"
@@ -36,5 +37,6 @@ package dma_pkg;
     `include "test/dma_mem_addr_test.sv"
     `include "test/dma_status_test.sv"
     `include "test/dma_transfer_count_test.sv"
+    `include "test/dma_regression_test.sv"
 
 endpackage
