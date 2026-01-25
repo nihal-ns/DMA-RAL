@@ -6,7 +6,7 @@ REGISTER = $(SRC)/register
 PKG      = dma_pkg.sv
 FILE     = top.sv
 TOP      = top
-TEST     = base_test
+test     = base_test
 
 # --- Coverage Variables ---
 COV_LOG_FILE   = dma_log.log
@@ -26,8 +26,8 @@ ifeq ($(VERBOSITY), DEBUG)
 endif
 
 # Set Testname
-ifneq ($(TEST),)
-    VSIM_OPTS += +UVM_TESTNAME=$(TEST)
+ifneq ($(test),)
+    VSIM_OPTS += +UVM_TESTNAME=$(test)
 endif
 
 # --- Main Targets ---
@@ -51,7 +51,7 @@ compile:
 
 # --- Simulation ---
 simulate: compile
-	@echo "--- Running Simulation (Test: $(TEST)) ---"
+	@echo "--- Running Simulation (Test: $(test)) ---"
 	# @vsim -c -l $(COV_LOG_FILE) $(TOP) $(VSIM_OPTS) -do "run -all; quit"
 	# NEW LINE (Add -voptargs=+acc):
 	@vsim -voptargs=+acc=npr -c -l $(COV_LOG_FILE) $(TOP) $(VSIM_OPTS) -do "run -all; quit"
