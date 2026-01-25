@@ -50,11 +50,16 @@ compile:
 	@vlog -sv +incdir+$(SRC) -l $(COV_LOG_FILE) $(SRC)/$(PKG) $(SRC)/$(FILE)
 
 # --- Simulation ---
+# simulate: compile
+# 	@echo "--- Running Simulation (Test: $(test)) ---"
+# 	# @vsim -c -l $(COV_LOG_FILE) $(TOP) $(VSIM_OPTS) -do "run -all; quit"
+# 	# NEW LINE (Add -voptargs=+acc):
+# 	@vsim -voptargs=+acc=npr -c -l $(COV_LOG_FILE) $(TOP) $(VSIM_OPTS) -do "run -all; quit"
+
 simulate: compile
 	@echo "--- Running Simulation (Test: $(test)) ---"
-	# @vsim -c -l $(COV_LOG_FILE) $(TOP) $(VSIM_OPTS) -do "run -all; quit"
-	# NEW LINE (Add -voptargs=+acc):
 	@vsim -voptargs=+acc=npr -c -l $(COV_LOG_FILE) $(TOP) $(VSIM_OPTS) -do "run -all; quit"
+	@sed -i 's/\x1b\[[0-9;]*m//g' $(COV_LOG_FILE)
 
 # --- Coverage Target ---
 cov: 
