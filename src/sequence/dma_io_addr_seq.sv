@@ -6,38 +6,62 @@ class io_addr_seq extends uvm_sequence;
 		super.new(name); 
 	endfunction 
 
-	task body; 
-		uvm_status_e status; 
-		bit [31:0] w_data ,r_data; 
-    
-		w_data = $urandom();
+	task body;
+		uvm_status_e status;
+		bit [31:0] w_data, r_data, prev_data, reset_val;
 
 		if(m_sequencer.get_report_verbosity_level() >= UVM_MEDIUM)
-			$display(" \n|---------------------------- IO_ADDR SEQUENCE STARTED -----------------------------------|\n "); 	
+			$display("\n |---------------------------------------- IO_ADDR SEQUENCE STARTED ------------------------------| \n");
 
-		`uvm_info(get_type_name(), $sformatf("Writing IO_ADDR = %0d\n", w_data), UVM_MEDIUM) 
-		regbk.io_addr.write(status, w_data ); 
-
-		if (status != UVM_IS_OK) 
-			`uvm_error(get_type_name(), "IO_ADDR register write failed\n") 
-
+		reset_val = regbk.io_addr.get_reset(); 
 		regbk.io_addr.read(status, r_data); 
-		`uvm_info(get_type_name(), $sformatf("Read IO_ADDR = %0d\n", r_data), UVM_MEDIUM) 
 
-		if (status != UVM_IS_OK) 
-			`uvm_error(get_type_name(), "IO_ADDR register read failed\n") 
-		
-		// Display values
-		$display("*****************************************CHECK*****************************************");
-		$display("Field\t\t   Write Value\t   Read Value");
-		$display("io_addr\t     %0h\t    %0h",w_data, r_data);
+		if(r_data !== reset_val) 
+			`uvm_error(get_type_name(), $sformatf("Reset Mismatch! Read: %0d Expected: %0d", r_data, reset_val))
+		else
+			`uvm_info(get_type_name(), $sformatf("Reset Check Passed (Value: %0d)", r_data), UVM_MEDIUM)
 
-		if (r_data != w_data) 
-			`uvm_error(get_type_name(), "io_addr is RO") 
-		else 
-			`uvm_info(get_type_name(),"io_addr is RW ",UVM_NONE)
-		if(m_sequencer.get_report_verbosity_level() >= UVM_MEDIUM)	
-			$display("\n|--------------------------------------- IO_ADDR SEQUENCE ENDED ----------------------------------|\n "); 	
+		repeat(3) begin
+			w_data = $random;
+			regbk.io_addr.poke(status, w_data);
+			prev_data = w_data; 
+
+			`uvm_info(get_type_name(), $sformatf("Poked Initial Value: IO_ADDR=%0d", prev_data), UVM_MEDIUM)
+
+			void'(std::randomize(w_data) with { w_data != prev_data; }); 
+
+			`uvm_info(get_type_name(), $sformatf("Attempting Write:    IO_ADDR=%0d", w_data), UVM_MEDIUM)
+
+			regbk.io_addr.write(status, w_data);
+
+			if(status != UVM_IS_OK) 
+				`uvm_error(get_type_name(), "IO_ADDR register write failed")
+
+			regbk.io_addr.read(status, r_data);
+
+			if(status != UVM_IS_OK) 
+				`uvm_error(get_type_name(), "IO_ADDR register read failed")
+
+			`uvm_info(get_type_name(), $sformatf("Read Back Value:     IO_ADDR=%0d", r_data), UVM_MEDIUM)
+
+			$display("***************************************** CHECK *****************************************");
+			$display("Field          Expected Behavior    Poked(Old)    Wrote(New)    Read Back");
+			$display("-----------------------------------------------------------------------------------------");
+			$display("io_addr        RW (Update New)      %0d    %0d     %0d", prev_data, w_data, r_data);
+			$display("-----------------------------------------------------------------------------------------");
+
+			if(r_data == w_data) 
+				`uvm_info(get_type_name(), "PASS: io_addr is RW ", UVM_LOW)
+			else 
+				`uvm_error(get_type_name(), $sformatf("FAIL: io_addr mismatch Exp: %0d, Got: %0d", w_data, r_data))
+
+			if(m_sequencer.get_report_verbosity_level() >= UVM_MEDIUM)
+				$display("-----------------------------------------------------------------------------------------");
+		end
+
+		if(m_sequencer.get_report_verbosity_level() >= UVM_MEDIUM)
+			$display("\n|--------------------------------- IO_ADDR SEQUENCE ENDED ----------------------------------|\n ");
+  
 	endtask
 
 endclass

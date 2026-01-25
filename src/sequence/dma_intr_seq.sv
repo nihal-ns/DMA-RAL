@@ -6,59 +6,68 @@ class intr_seq extends uvm_sequence;
 		super.new(name); 
 	endfunction 
 
-	task body; 
-		uvm_status_e status; 
-		bit [31:0] w_data ,r_data, prev_data; 
-		w_data[15:0] = $random; 
-		w_data[31:16] = $random; 
+	task body;
+		uvm_status_e status;
+		bit [31:0] w_data, r_data, prev_data, reset_val;
 
 		if(m_sequencer.get_report_verbosity_level() >= UVM_MEDIUM)
 			$display("\n |---------------------------------------- INTR SEQUENCE STARTED ------------------------------| \n");
 
-		`uvm_info(get_type_name(), $sformatf(" INTR[15:0] = %0d | INTR[31:16] = %0d ", w_data[15:0], w_data[31:16]), UVM_MEDIUM) 
-		`uvm_info(get_type_name(),"Writing w_data to the dut INTR register \n", UVM_MEDIUM) 
-		/* regbk.intr.read(status, prev_data, UVM_BACKDOOR); */ 
-		regbk.intr.write(status, $random(), UVM_FRONTDOOR); // to skip the reset stage
-		regbk.intr.poke(status, w_data); 
-		prev_data = w_data;
-		
-		w_data[15:0] = $random; 
-		w_data[31:16] = $random; 
+		reset_val = regbk.intr.get_reset(); 
+		regbk.intr.read(status, r_data); // Frontdoor Read
 
-		regbk.intr.write(status, w_data); 
-		`uvm_info(get_type_name(), $sformatf(" INTR[15:0] = %0d | INTR[31:16] = %0d ", w_data[15:0], w_data[31:16] ), UVM_MEDIUM) 
+		if(r_data !== reset_val) 
+			`uvm_error(get_type_name(), $sformatf("Reset Mismatch Read: %0d Expected: %0d", r_data, reset_val))
+		else
+			`uvm_info(get_type_name(), $sformatf("Reset Check Passed (Value: %0d)", r_data), UVM_MEDIUM)
 
-    if (status != UVM_IS_OK) 
-			`uvm_error(get_type_name(), "INTR register write failed\n") 
+		repeat(3) begin
+			w_data = $random;
+			regbk.intr.poke(status, w_data);
+			prev_data = w_data; 
+			`uvm_info(get_type_name(), $sformatf("Poked Initial Value: INTR[15:0](RO)=%0d | INTR[31:16](RW)=%0d", prev_data[15:0], prev_data[31:16]), UVM_MEDIUM)
 
-		`uvm_info(get_type_name()," performing read method ", UVM_MEDIUM) 
- 
-		regbk.intr.peek(status, r_data); 
-		/* regbk.intr.peek(status, r_data); */ 
+			void'(std::randomize(w_data) with { w_data != prev_data; }); 
 
-		`uvm_info(get_type_name(), $sformatf("Read INTR = %0d\n", r_data), UVM_MEDIUM) 
+			`uvm_info(get_type_name(), $sformatf("Attempting Write:    INTR[15:0]=%0d | INTR[31:16]=%0d", w_data[15:0], w_data[31:16]), UVM_MEDIUM)
 
-		if (status != UVM_IS_OK) 
-			`uvm_error(get_type_name(), "INTR register read failed\n") 
+			regbk.intr.write(status, w_data);
 
-		// Display values
-		$display("*****************************************CHECK*****************************************");
-		$display("Field\t\t   Write Value\tRead Value");
-		$display("intr_status\t     %0d\t    %0d",w_data[15:0], r_data[15:0]);
-		$display("intr_mask\t     %0d\t    %0d",w_data[31:16], r_data[31:16]);
+			if(status != UVM_IS_OK) 
+				`uvm_error(get_type_name(), "INTR register write failed")
 
-		if (prev_data[15:0] == r_data[15:0]) 
-			`uvm_info(get_type_name(), "intr_reg status is RO ", UVM_LOW) 
-		else 
-			`uvm_error(get_type_name(),"intr_reg status is RW ")
+			regbk.intr.read(status, r_data);
 
-		if (prev_data[31:16] == r_data[31:16]) 
-			`uvm_error(get_type_name(), "intr_reg mask is RO ") 
-		else 
-			`uvm_info(get_type_name(),"intr_reg mask is RW ",UVM_LOW)
+			if(status != UVM_IS_OK) 
+				`uvm_error(get_type_name(), "INTR register read failed")
+
+			`uvm_info(get_type_name(), $sformatf("Read Back Value:     INTR=%0d ", r_data), UVM_MEDIUM)
+
+
+			$display("***************************************** CHECK *****************************************");
+			$display("Field          Expected Behavior    Poked(Old)    Wrote(New)    Read Back");
+			$display("-----------------------------------------------------------------------------------------");
+			$display("intr_status    RO (Keep Old)        %0d           %0d           %0d", prev_data[15:0], w_data[15:0], r_data[15:0]);
+			$display("intr_mask      RW (Update New)      %0d           %0d           %0d", prev_data[31:16], w_data[31:16], r_data[31:16]);
+			$display("-----------------------------------------------------------------------------------------");
+
+			if (r_data[15:0] == prev_data[15:0]) 
+				`uvm_info(get_type_name(), "PASS: intr_status is RO ", UVM_LOW)
+			else 
+				`uvm_error(get_type_name(), $sformatf("FAIL: intr_status changed Expected: %0d, Got: %0d", prev_data[15:0], r_data[15:0]))
+
+			if (r_data[31:16] == w_data[31:16]) 
+				`uvm_info(get_type_name(), "PASS: intr_mask is RW ", UVM_LOW)
+			else 
+				`uvm_error(get_type_name(), $sformatf("FAIL: intr_mask did not update Expected: %0d, Got: %0d", w_data[31:16], r_data[31:16]))
+
+			if(m_sequencer.get_report_verbosity_level() >= UVM_MEDIUM)
+				$display("-----------------------------------------------------------------------------------------");
+		end
 
 		if(m_sequencer.get_report_verbosity_level() >= UVM_MEDIUM)
 			$display("\n|--------------------------------- INTR SEQUENCE ENDED ----------------------------------|\n ");
+  
 	endtask
 
 endclass
