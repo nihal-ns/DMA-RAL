@@ -63,51 +63,7 @@ class transfer_count_seq extends uvm_sequence;
 
 		if(m_sequencer.get_report_verbosity_level() >= UVM_MEDIUM)
 			$display("\n|--------------------------------- TRANSFER_COUNT SEQUENCE ENDED ----------------------------------|\n ");
+
 	endtask
-
-	/* task body; */ 
-	/* 	uvm_status_e status; */
-	/* 	bit [31:0] w_data ,r_data, prev_data; */
-	/* 	w_data = $random; */
-
-	/* 	if(m_sequencer.get_report_verbosity_level() >= UVM_MEDIUM) */
-	/* 		$display("\n |---------------------------------------- TRANSFER_COUNT SEQUENCE STARTED ------------------------------| \n"); */
-
-	/* 	`uvm_info(get_type_name(), $sformatf("BackDoor write transfer_count = %0d\n", w_data), UVM_MEDIUM) */
-	/* 	/1* regbk.intr.write(status, $random(), UVM_FRONTDOOR); // to skip the reset stage *1/ */
-	/* 	regbk.transfer_count.poke(status, w_data); */
-	/* 	prev_data = w_data; */
-
-	/* 	w_data = $random; */
-
-	/* 	`uvm_info(get_type_name(), $sformatf("Writing transfer_count = %0d\n", w_data), UVM_MEDIUM) */
-	/* 	regbk.transfer_count.write(status, w_data); */
-
-    /* if (status != UVM_IS_OK) */
-	/* 		`uvm_error(get_type_name(), "transfer_count register write failed\n") */
-
-	/* 	`uvm_info(get_type_name()," performing read method ", UVM_MEDIUM) */
-
-	/* 	regbk.transfer_count.read(status, r_data); */
-
-	/* 	`uvm_info(get_type_name(), $sformatf("Read transfer_count = %0d\n", r_data), UVM_MEDIUM) */
-
-	/* 	if (status != UVM_IS_OK) */
-	/* 		`uvm_error(get_type_name(), "transfer_count register read failed\n") */
-
-	/* 	// Display values */
-	/* 	$display("*****************************************CHECK*****************************************"); */
-	/* 	$display("Field\t\t   Write Value\tRead Value"); */
-	/* 	$display("transfer_count\t     %0d\t    %0d",w_data, r_data); */
-
-	/* 	if (prev_data == r_data) */
-	/* 		`uvm_info(get_type_name(), "transfer_count is RO ", UVM_LOW) */
-	/* 	else */
-	/* 		`uvm_error(get_type_name(),"transfer_count is RW ") */
-
-	/* 	if(m_sequencer.get_report_verbosity_level() >= UVM_MEDIUM) */
-	/* 		$display("\n|--------------------------------- TRANSFER_COUNT SEQUENCE ENDED ----------------------------------|\n "); */
-
-	/* endtask */
 
 endclass

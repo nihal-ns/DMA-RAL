@@ -79,6 +79,8 @@ class ctrl_seq extends uvm_sequence;
 				$display("-----------------------------------------------------------------------------------------");
 	end
 
+	regbk.ctrl.poke(status, 32'h0);
+
 	if(m_sequencer.get_report_verbosity_level() >= UVM_MEDIUM)
 		$display("\n|--------------------------------- CTRL SEQUENCE ENDED ----------------------------------|\n ");
   

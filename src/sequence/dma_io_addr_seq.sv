@@ -59,6 +59,8 @@ class io_addr_seq extends uvm_sequence;
 				$display("-----------------------------------------------------------------------------------------");
 		end
 
+		regbk.io_addr.poke(status, 32'h0);
+
 		if(m_sequencer.get_report_verbosity_level() >= UVM_MEDIUM)
 			$display("\n|--------------------------------- IO_ADDR SEQUENCE ENDED ----------------------------------|\n ");
   
