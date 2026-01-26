@@ -9,9 +9,11 @@ class intr_reg extends uvm_reg;
 
 	covergroup intr_reg_cov;
 		option.per_instance = 1;
-
+		status_cp: coverpoint intr_status.value {
+			option.auto_bin_max  = 2;
+		}
 		mask_cp: coverpoint intr_mask.value	{
-			option.auto_bin_max  = 4;
+			option.auto_bin_max  = 2;
 		}	
 	endgroup
 

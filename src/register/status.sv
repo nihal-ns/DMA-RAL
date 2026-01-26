@@ -12,9 +12,47 @@ class status_reg extends uvm_reg;
   rand uvm_reg_field fifo_level;
   rand uvm_reg_field reserved;
 
+	covergroup status_reg_cov;
+		option.per_instance = 1;
+		busy_cp :coverpoint busy.value {
+			bins busy_val = {0,1};
+		}
+		done_cp: coverpoint done.value {
+			bins done_val = {0,1};
+		}
+		error_cp: coverpoint error.value {
+			bins error_val = {0,1};
+		}
+		paused_cp: coverpoint paused.value {
+			bins paused_val = {0,1};
+		}
+		current_state_cp: coverpoint current_state.value {
+			bins current_state_val = {0,1,2,3};
+		}
+		fifo_level_cp: coverpoint fifo_level.value {
+			option.auto_bin_max  = 2;
+		}
+	endgroup
+
   function new (string name = "status_reg");
-    super.new(name, 32, UVM_NO_COVERAGE);
-  endfunction
+		super.new(name,32,UVM_CVR_FIELD_VALS);
+		if(has_coverage(UVM_CVR_FIELD_VALS))
+			status_reg_cov = new();
+	endfunction
+
+	function void sample(
+		uvm_reg_data_t data,
+		uvm_reg_data_t byte_en,
+		bit is_read,
+		uvm_reg_map map
+	);
+		status_reg_cov.sample();
+	endfunction
+
+	function void sample_values();
+		super.sample_values();
+		status_reg_cov.sample();
+	endfunction
 
   function void build; 
     busy = uvm_reg_field::type_id::create("busy");   

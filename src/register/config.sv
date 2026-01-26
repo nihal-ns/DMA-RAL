@@ -16,7 +16,7 @@ class config_reg extends uvm_reg;
 		option.per_instance = 1;
 
 		priority_cp: coverpoint prio.value	{
-			bins prio[] = {[0:3]};
+			bins prio = {[0:3]};
 		}	
 		auto_cp: coverpoint auto_restart.value {
 			bins auto_0 = {0};
@@ -27,10 +27,10 @@ class config_reg extends uvm_reg;
 			bins interrupt_1 = {1};
 		}
 		burst_cp: coverpoint burst_size.value {
-			bins burst_s[] = {[0:3]};
+			bins burst_s = {[0:3]};
 		}
 		data_width_cp: coverpoint data_width.value {
-			bins data_w[] = {[0:3]};
+			bins data_w = {[0:3]};
 		}
 		descriptor_mode_cp: coverpoint descriptor_mode.value {
 			bins des_0 = {0};

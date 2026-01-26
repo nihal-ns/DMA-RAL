@@ -17,7 +17,7 @@ class ctrl_reg extends uvm_reg;
 			bins start_dma_1 = {1};
 		}
 		w_count_cp: coverpoint w_count.value {
-			option.auto_bin_max  = 4;
+			option.auto_bin_max  = 2;
 		}
 		io_mem_cp: coverpoint io_mem.value {
 			bins io_mem_0 = {0};

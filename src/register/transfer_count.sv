@@ -6,9 +6,33 @@ class transfer_count_reg extends uvm_reg;
    
   rand uvm_reg_field transfer_count;
 
+	covergroup transfer_count_reg_cov;
+		option.per_instance = 1;
+
+		transfer_count_cp: coverpoint transfer_count.value	{
+			option.auto_bin_max  = 2;
+		}	
+	endgroup
+
   function new (string name = "transfer_count_reg");
-    super.new(name,32,UVM_NO_COVERAGE); //32 -> Register Width
+    super.new(name, 32, UVM_CVR_FIELD_VALS);
+		if(has_coverage(UVM_CVR_FIELD_VALS))
+			transfer_count_reg_cov = new();
   endfunction
+
+	function void sample(
+		uvm_reg_data_t data,
+		uvm_reg_data_t byte_en,
+		bit is_read,
+		uvm_reg_map map
+	);
+		transfer_count_reg_cov.sample();
+	endfunction
+
+	function void sample_values();
+		super.sample_values();
+		transfer_count_reg_cov.sample();
+	endfunction
 
   function void build; 
     transfer_count = uvm_reg_field::type_id::create("transfer_count");   
