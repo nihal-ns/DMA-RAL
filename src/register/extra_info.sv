@@ -9,8 +9,8 @@ class extra_info_reg extends uvm_reg;
 	covergroup extra_reg_cov;
 		option.per_instance = 1;
 
-		extra_info_cp: coverpoint extra_info.value	{
-			option.auto_bin_max  = 2;
+		extra_info_cp: coverpoint extra_info.value[31:0]	{
+			option.auto_bin_max  = 4;
 		}	
 	endgroup
 

@@ -36,11 +36,11 @@ class error_status_reg extends uvm_reg;
 			bins underflow_0 = {0};
 			bins underflow_1 = {1};
 		}	
-		error_code_cp: coverpoint error_code.value {
-			option.auto_bin_max = 2;
+		error_code_cp: coverpoint error_code.value[7:0] {
+			option.auto_bin_max = 4;
 		}
-		error_addr_offset_cp: coverpoint error_addr_offset.value {
-			option.auto_bin_max = 2;
+		error_addr_offset_cp: coverpoint error_addr_offset.value[15:0] {
+			option.auto_bin_max = 4;
 		}
 	endgroup
 

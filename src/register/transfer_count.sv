@@ -9,8 +9,8 @@ class transfer_count_reg extends uvm_reg;
 	covergroup transfer_count_reg_cov;
 		option.per_instance = 1;
 
-		transfer_count_cp: coverpoint transfer_count.value	{
-			option.auto_bin_max  = 2;
+		transfer_count_cp: coverpoint transfer_count.value[31:0]	{
+			option.auto_bin_max  = 4;
 		}	
 	endgroup
 

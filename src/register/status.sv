@@ -29,8 +29,8 @@ class status_reg extends uvm_reg;
 		current_state_cp: coverpoint current_state.value {
 			bins current_state_val = {0,1,2,3};
 		}
-		fifo_level_cp: coverpoint fifo_level.value {
-			option.auto_bin_max  = 2;
+		fifo_level_cp: coverpoint fifo_level.value[7:0] {
+			option.auto_bin_max  = 4;
 		}
 	endgroup
 

@@ -9,8 +9,8 @@ class descriptor_addr_reg extends uvm_reg;
 	covergroup descriptor_reg_cov;
 		option.per_instance = 1;
 
-		descriptor_cp: coverpoint descriptor_addr.value	{
-			option.auto_bin_max  = 2;
+		descriptor_cp: coverpoint descriptor_addr.value[31:0]	{
+			option.auto_bin_max  = 4;
 		}	
 	endgroup
 

@@ -9,8 +9,8 @@ class io_addr_reg extends uvm_reg;
 	covergroup io_reg_cov;
 		option.per_instance = 1;	
 
-		io_addr_cp: coverpoint io_addr.value {
-			option.auto_bin_max  = 2;
+		io_addr_cp: coverpoint io_addr.value[31:0] {
+			option.auto_bin_max  = 4;
 		}
 	endgroup	
 

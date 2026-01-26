@@ -9,8 +9,8 @@ class mem_addr_reg extends uvm_reg;
 	covergroup mem_addr_reg_cov;
 		option.per_instance = 1;
 
-		mem_addr_cp: coverpoint mem_addr.value	{
-			option.auto_bin_max  = 2;
+		mem_addr_cp: coverpoint mem_addr.value[31:0]	{
+			option.auto_bin_max  = 4;
 		}	
 	endgroup
 	
