@@ -13,17 +13,10 @@ class status_seq extends uvm_sequence;
 		if(m_sequencer.get_report_verbosity_level() >= UVM_MEDIUM)
 			$display("\n |---------------------------------------- STATUS SEQUENCE STARTED ------------------------------| \n");
 
-		reset_val = regbk.status.get_reset();
-		regbk.status.read(status, r_data);
-
-		if(r_data !== reset_val)
-			`uvm_error(get_type_name(), $sformatf("Reset Mismatch Read: %0d Expected: %0d", r_data, reset_val))
-		else
-			`uvm_info(get_type_name(), $sformatf("Reset Check Passed (Value: %0d)", r_data), UVM_MEDIUM)
-
 		repeat(3) begin
 			w_data = $random;
 			w_data[31:16] = 0;
+			/* regbk.status.read(status, r_data);  // to skip the initial reset part */
 			regbk.status.poke(status, w_data);
 			prev_data = w_data;
 

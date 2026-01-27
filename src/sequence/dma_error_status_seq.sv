@@ -18,14 +18,6 @@ class error_status_seq extends uvm_sequence;
 		if(m_sequencer.get_report_verbosity_level() >= UVM_MEDIUM)
 			$display("\n |---------------------------------------- ERROR_STATUS SEQUENCE STARTED ------------------------------| \n");
 
-		reset_val = regbk.error_status.get_reset(); 
-		regbk.error_status.read(status, r_data); 
-
-		if(r_data !== reset_val) 
-			`uvm_error(get_type_name(), $sformatf("Reset Mismatch Read: %0d Expected: %0d", r_data, reset_val))
-		else
-			`uvm_info(get_type_name(), $sformatf("Reset Check Passed (Value: %0d)", r_data), UVM_MEDIUM)
-
 		repeat(3) begin
 		// We force the register to a Bad State (All errors active)
 		// This allows us to test if writing 1 clears them, and writing 0 keeps them.

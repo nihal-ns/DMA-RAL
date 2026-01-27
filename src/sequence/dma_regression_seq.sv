@@ -2,6 +2,7 @@ class dma_regression_seq extends uvm_sequence;
 	`uvm_object_utils(dma_regression_seq)
 
 	dma_reg_model       regbk;
+	reset_seq           rst_seq;
 	intr_seq            int_seq;
 	ctrl_seq            ct_seq;
 	io_addr_seq         io_seq;
@@ -19,6 +20,21 @@ class dma_regression_seq extends uvm_sequence;
 
 	task body;
 		`uvm_info(get_type_name(), "\n|================== STARTING DMA REGRESSION SEQUENCE ==================|", UVM_LOW)
+	
+	// reset sequence
+		rst_seq = reset_seq::type_id::create("rst_seq");
+    rst_seq.regbk = regbk;
+    rst_seq.start(m_sequencer);
+
+	// 6. Status Register
+		stat_seq = status_seq::type_id::create("stat_seq");
+		stat_seq.regbk = regbk;
+		stat_seq.start(m_sequencer);
+
+	// 7. Transfer Count Register
+		trans_seq = transfer_count_seq::type_id::create("trans_seq");
+		trans_seq.regbk = regbk;
+		trans_seq.start(m_sequencer);
 
 	// 1. Interrupt Register
 		int_seq = intr_seq::type_id::create("int_seq");
@@ -45,15 +61,6 @@ class dma_regression_seq extends uvm_sequence;
 		info_seq.regbk = regbk;
 		info_seq.start(m_sequencer);
 
-	// 6. Status Register
-		stat_seq = status_seq::type_id::create("stat_seq");
-		stat_seq.regbk = regbk;
-		stat_seq.start(m_sequencer);
-
-	// 7. Transfer Count Register
-		trans_seq = transfer_count_seq::type_id::create("trans_seq");
-		trans_seq.regbk = regbk;
-		trans_seq.start(m_sequencer);
 
 	// 8. Descriptor Address Register
 		des_seq = descriptor_addr_seq::type_id::create("des_seq");

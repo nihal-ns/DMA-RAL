@@ -13,7 +13,8 @@ package dma_pkg;
     `include "dma_subscriber.sv"
     `include "dma_agent.sv"
     `include "dma_env.sv"
-
+		
+		`include "sequence/dma_reset_seq.sv"
     `include "sequence/dma_config_seq.sv"
     `include "sequence/dma_ctrl_seq.sv"
     `include "sequence/dma_descriptor_addr_seq.sv"

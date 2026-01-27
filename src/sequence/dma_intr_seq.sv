@@ -13,14 +13,6 @@ class intr_seq extends uvm_sequence;
 		if(m_sequencer.get_report_verbosity_level() >= UVM_MEDIUM)
 			$display("\n |---------------------------------------- INTR SEQUENCE STARTED ------------------------------| \n");
 
-		reset_val = regbk.intr.get_reset(); 
-		regbk.intr.read(status, r_data); // Frontdoor Read
-
-		if(r_data !== reset_val) 
-			`uvm_error(get_type_name(), $sformatf("Reset Mismatch Read: %0d Expected: %0d", r_data, reset_val))
-		else
-			`uvm_info(get_type_name(), $sformatf("Reset Check Passed (Value: %0d)", r_data), UVM_MEDIUM)
-
 		repeat(3) begin
 			w_data = $random;
 			regbk.intr.poke(status, w_data);
